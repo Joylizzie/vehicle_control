@@ -35,3 +35,5 @@ Thumbs.db
 
 # Uvicorn / FastAPI specific (optional)
 *.sqlite3
+
+config.yaml
