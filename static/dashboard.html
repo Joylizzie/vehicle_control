@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LZ Fleet - Random VIN Dashboard</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text: #e94560;
+            --subtext: #ffffff;
+        }
+        body { font-family: 'Courier New', monospace; background: var(--bg); color: var(--subtext); padding: 40px; }
+        h1 { border-bottom: 2px solid var(--text); padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--text); 
+            padding: 20px; 
+            border-radius: 5px; 
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.2);
+        }
+        .vin { font-size: 1.2rem; font-weight: bold; color: var(--text); margin-bottom: 15px; display: block; }
+        .stat { margin: 8px 0; font-size: 0.9rem; }
+        .actions { display: flex; gap: 10px; margin-top: 20px; }
+        button { 
+            flex: 1; padding: 10px; cursor: pointer; border: 1px solid var(--text);
+            background: transparent; color: var(--subtext); font-weight: bold;
+        }
+        button:hover { background: var(--text); color: white; }
+        .fuel-bar { background: #333; height: 10px; width: 100%; margin-top: 5px; }
+        .fuel-fill { background: #4caf50; height: 100%; transition: width 0.5s; }
+    </style>
+</head>
+<body>
+
+    <h1>🛰️ VEHICLE COMMAND CENTER</h1>
+    <div id="fleet-grid" class="grid">Loading encrypted vehicle data...</div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000";
+
+        // 1. FETCH THE ENTIRE LIST (handles your random 17-char VINs)
+        async function loadFleet() {
+            try {
+                const response = await fetch(`${API_URL}/vehicles`); // Calls your GET /vehicles route
+                const vehicles = await response.json();
+                
+                const grid = document.getElementById('fleet-grid');
+                grid.innerHTML = ""; // Clear the loading text
+
+                vehicles.forEach(vehicle => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <span class="vin">${vehicle.vin}</span>
+                        <div class="stat">LOCK STATUS: ${vehicle.locked ? '🔒 SECURE' : '🔓 OPEN'}</div>
+                        <div class="stat">ENGINE: ${vehicle.engine_running ? '⚡ ACTIVE' : '💤 IDLE'}</div>
+                        <div class="stat">
+                            FUEL: ${vehicle.fuel_level}%
+                            <div class="fuel-bar"><div class="fuel-fill" style="width: ${vehicle.fuel_level}%"></div></div>
+                        </div>
+                        <div class="actions">
+                            <button onclick="sendCommand('${vehicle.vin}', 'lock', false)">UNLOCK</button>
+                            <button onclick="sendCommand('${vehicle.vin}', 'lock', true)">LOCK</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                document.getElementById('fleet-grid').innerHTML = "SYSTEM ERROR: API OFFLINE";
+            }
+        }
+
+        // 2. SEND COMMAND TO SPECIFIC RANDOM VIN
+        async function sendCommand(vin, action, value) {
+     
+            const url = `${API_URL}/vehicle/${vin}/${action}?locked=${value}`;
+            
+            try {
+                const response = await fetch(url, { method: 'PATCH' });
+                if (response.ok) {
+                    loadFleet(); // Re-sync the dashboard with the DB
+                }
+            } catch (err) {
+                alert("COMMAND INTERRUPTED");
+            }
+        }
+
+        // Run on page load
+        loadFleet();
+    </script>
+</body>
+</html>
