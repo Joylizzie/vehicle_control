@@ -2,7 +2,7 @@
 
 # 🚀 High-Performance Vehicle Fleet Control
 
-A custom-built, "weaved" IoT management system using **FastAPI**, **PostgreSQL**, and **Vanilla JS**. This project bypasses heavy ORMs to achieve maximum database performance and real-time control of 100+ vehicles.
+A custom-built, "weaved" IoT management system using **FastAPI**, **PostgreSQL**, and **Vanilla JS**. This project bypasses heavy ORMs to achieve maximum database performance and real-time control of 100+ vehiclesi(configurable).
 
 ## 🛠 Tech Stack
 - **Backend:** FastAPI (Python)
@@ -25,10 +25,15 @@ A custom-built, "weaved" IoT management system using **FastAPI**, **PostgreSQL**
 🔗 Quick Access Links
 
 Once the system is running via ./run.sh, you can access the following:
+
 Control Dashboard:http://localhost:8000/static/dashboard.html	The main UI to see and control all vehicles.
+
 Interactive Docs:http://localhost:8000/docs	Full Swagger UI to test POST, PATCH, and GET manually.
+
 Fleet JSON:http://localhost:8000/vehicles	View the raw data for all 100+ random VINs.
+
 Health Check:http://localhost:8000/health	Verify the API and DB connection status.
+
 🛠 Manual Command Examples (For Testing)
 
 Each run the VIN code is randomly generated, visiting the Fleet JSON link first, copying one of the 17-character VINs, and then pasting it into the Docs or your browser URL to test the individual vehicle controls.
