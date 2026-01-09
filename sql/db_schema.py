@@ -15,7 +15,7 @@ create database lzvehicles;
 # src/create_tb_idx.py
 
 table_sql = """
-DROP TABLE IF EXISTS vehicle_status CASCADE; -- This is the 'Nuclear' reset
+DROP TABLE IF EXISTS vehicle_status CASCADE; 
 CREATE TABLE vehicle_status (
     vin VARCHAR(17) PRIMARY KEY,   -- Primary Key is VIN, so NO auto-increment
     locked BOOLEAN NOT NULL DEFAULT TRUE,

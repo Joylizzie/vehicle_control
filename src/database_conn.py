@@ -27,7 +27,6 @@ def get_conn_str():
     cfg = full_config["database"]
     
     # Priority: Environment Variable > config.yaml
-    # Note: We use cfg['password'] and cfg['dbname'] to match your file
     db_pass = os.getenv("VEHICLE_DB_PASSWORD", cfg.get("password"))
     db_name = cfg.get("dbname") 
     

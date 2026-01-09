@@ -74,7 +74,7 @@
 
         // 2. SEND COMMAND TO SPECIFIC RANDOM VIN
         async function sendCommand(vin, action, value) {
-            // Updated to match your PATCH /vehicle/{vin}/lock?locked=true route
+     
             const url = `${API_URL}/vehicle/${vin}/${action}?locked=${value}`;
             
             try {
