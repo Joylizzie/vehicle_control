@@ -1,0 +1,10 @@
+database:
+  host: "127.0.0.1"
+  port: 5432
+  dbname: "lzvehicles"
+  user: "postgres"
+  password: "yourpassword"
+  sslmode: disable
+
+app_settings:
+  seed_count: 100
