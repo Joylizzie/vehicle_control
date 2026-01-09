@@ -2,7 +2,7 @@
 
 # 🚀 High-Performance Vehicle Fleet Control
 
-A custom-built, "weaved" IoT management system using **FastAPI**, **PostgreSQL**, and **Vanilla JS**. This project bypasses heavy ORMs to achieve maximum database performance and real-time control of 100+ vehiclesi(configurable).
+A custom-built, "weaved" IoT management system using **FastAPI**, **PostgreSQL**, and **Vanilla JS**. This project bypasses heavy ORMs to achieve maximum database performance and real-time control of 100+ vehicles(configurable).
 
 ## 🛠 Tech Stack
 - **Backend:** FastAPI (Python)
@@ -26,22 +26,19 @@ A custom-built, "weaved" IoT management system using **FastAPI**, **PostgreSQL**
 
 Once the system is running via ./run.sh, you can access the following:
 
-Control Dashboard:http://localhost:8000/static/dashboard.html	The main UI to see and control all vehicles.
-
-Interactive Docs:http://localhost:8000/docs	Full Swagger UI to test POST, PATCH, and GET manually.
-
-Fleet JSON:http://localhost:8000/vehicles	View the raw data for all 100+ random VINs.
-
-Health Check:http://localhost:8000/health	Verify the API and DB connection status.
+1. Control Dashboard:http://localhost:8000/static/dashboard.html	The main UI to see and control all vehicles.
+2. Interactive Docs:http://localhost:8000/docs	Full Swagger UI to test POST, PATCH, and GET manually.
+3. Fleet JSON:http://localhost:8000/vehicles	View the raw data for all 100+ random VINs.
+4. Health Check:http://localhost:8000/health	Verify the API and DB connection status.
 
 🛠 Manual Command Examples (For Testing)
 
-Each run the VIN code is randomly generated, visiting the Fleet JSON link first, copying one of the 17-character VINs, and then pasting it into the Docs or your browser URL to test the individual vehicle controls.
+Each run the VIN code is randomly generated, visiting the Fleet JSON link first, copying one of the 17-character VINs, and then pasting it into the Docs or  below URL to test the individual vehicle controls.
 1. Check a Specific Vehicle
-GET http://localhost:8000/vehicle/{YOUR_RANDOM_VIN}
-
+    GET http://localhost:8000/vehicle/{YOUR_RANDOM_VIN}
+    
 2. Lock/Unlock (PATCH)
-To lock a car manually via URL parameters: PATCH http://localhost:8000/vehicle/{VIN}/lock?locked=true
+    To lock a car manually via URL parameters: PATCH http://localhost:8000/vehicle/{VIN}/lock?locked=true
 
 3. Engine Control (POST)
     If you are using the action-based endpoints:
